@@ -5,14 +5,14 @@ import React from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [headerBackground, setHeaderBackground] = React.useState("bg-transparent");
+  const [isScrolling, setIsScrolling] = React.useState(false);
 
   React.useEffect(() => {
     function handleScroll() {
       if (window.scrollY > 0) {
-        setHeaderBackground("bg-white");
+        setIsScrolling(true);
       } else {
-        setHeaderBackground("bg-transparent");
+        setIsScrolling(false);
       }
     }
 
@@ -22,7 +22,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 " ${headerBackground}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 ${isScrolling ? "bg-white": "bg-transparent"}`}>
       <nav className="container mx-auto flex items-center justify-between px-4 py-3 md:px-8">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold text-primary">
@@ -31,19 +31,15 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-8 items-center">
-          <a href="#" className="text-white hover:text-primary">
+          <a href="#" className={`${isScrolling ? "text-primary": "text-white"} hover:text-primary`}>
             Home
           </a>
-          <a href="#blogs" className="text-white hover:text-primary">
+          <a href="#blogs" className={`${isScrolling ? "text-primary": "text-white"} hover:text-primary`}>
             Blogs
           </a>
-          <a href="#contact" className="text-white hover:text-primary">
+          <a href="#contact" className={`${isScrolling ? "text-primary": "text-white"} hover:text-primary`}>
             Contact
           </a>
-        {/* </div> */}
-
-        {/* Call-to-Action Button (Desktop) */}
-        {/* <div className="hidden md:flex"> */}
           <a
             href="#signup"
             className="px-6 py-2 bg-primary text-white font-medium rounded hover:bg-primary-dark transition"
